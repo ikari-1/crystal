@@ -21,6 +21,11 @@ const UserSchema = new mongoose.Schema(
       min: 4,
       max: 50,
     },
+    //途中からパスワードをハッシュ化する時の二重認証戦略用のフィールド
+    isPasswordHashed: {
+      type: Boolean,
+      default: false,
+    },
     displayName: {
       type: String,
       min: 2,
