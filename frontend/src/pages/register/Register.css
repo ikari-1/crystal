@@ -58,7 +58,7 @@ body {
   align-self: center;
 }
 
-.loginInput {
+.registerInput {
   height: 30px;
   border-radius: 5px;
   border: 1px solid #B0BEC5;
@@ -70,7 +70,9 @@ body {
   outline: none;
 }
 
-.loginButton {
+.registerButton {
+  width: 60%;
+  align-self: center;
   height: 30px;
   margin-top: 30px;
   border-radius: 10px;
@@ -84,40 +86,6 @@ body {
 
 .loginButton:hover {
   background-color: #cfe2f3;
-}
-
-.loginForgot {
-  text-align: center;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  margin-top: 10px;
-}
-
-.loginRegisterLink {
-  width: 60%;
-  align-self: center;
-}
-
-.loginForgot:hover {
-  text-decoration: underline;
-}
-
-.loginRegisterButton {
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #eaf2fdc0;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.loginRegisterButton:hover {
-  background-color: #cfe2f3c0;
 }
 
 @media (max-width: 1000px) {
