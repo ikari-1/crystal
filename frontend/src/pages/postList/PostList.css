@@ -33,7 +33,6 @@ body {
 .postListCenter {
   display: flex;
   flex-direction: column;
-  gap: 30px;
   width: 70%;
   padding-top: 30px;
   background-color: #c5c5c5;
@@ -42,16 +41,18 @@ body {
 .post {
   width: 90%;
   height: 130px;
-  margin: 0 auto;
+  margin-bottom: 30px;
+  margin-inline: auto;
   border-radius: 10px;
   background-color: #fff;
+  list-style: none;
 }
 
 .postData {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  padding-top: 10px;
   border-bottom: 2px solid #000000;
 }
 
