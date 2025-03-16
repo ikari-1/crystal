@@ -75,5 +75,24 @@ router.delete("/:id", async (req, res) => {
 
 
 
+//新規投稿
+router.post("/", async (req, res) => {
+  const newPost = new Post(req.body);
+  try {
+    const savedPost = await newPost.save();
+    return res.status(200).json(savedPost);
+  } catch(err) {
+    return res.status(500).json(err);
+  }
+});
+
+router.get("/all", async(req, res) => {
+  try {
+    const post = await Post.find();
+    return res.status(200).json(post);
+  } catch (err) {
+    return res.status(403).json(err);
+  }
+});
 
 module.exports = router;
