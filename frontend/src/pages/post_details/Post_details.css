@@ -1,0 +1,549 @@
+/* 全体のコンテナスタイル - ログイン画面と同じ雰囲気に */
+.post-details-container {
+  /* レイアウト関係 */
+  display: flex;
+  flex-direction: column;
+  
+  /* ボックスモデル関係 */
+  width: 100%;
+  min-height: 100vh;
+  
+  /* フォント関係 */
+  font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', sans-serif;
+  
+  /* 背景、装飾関係 */
+  background-color: #f0f2f5;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* ヘッダーセクション */
+.header {
+  /* レイアウト関係 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  /* ボックスモデル関係 */
+  padding: 20px 5%;
+  margin-bottom: 30px;
+  
+  /* 背景、装飾関係 */
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section {
+  /* レイアウト関係 */
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  /* ボックスモデル関係 */
+  margin: 0;
+  
+  /* フォント関係 */
+  font-size: 32px;
+  font-weight: bold;
+  color: #0e76a8;
+}
+
+.tagline {
+  /* フォント関係 */
+  font-size: 14px;
+  color: #666;
+}
+
+.user-section {
+  /* レイアウト関係 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.username {
+  /* ボックスモデル関係 */
+  margin-bottom: 8px;
+  
+  /* フォント関係 */
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.actions {
+  /* レイアウト関係 */
+  display: flex;
+  gap: 10px;
+}
+
+.logout-btn, .post-list-btn {
+  /* ボックスモデル関係 */
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  
+  /* フォント関係 */
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  
+  /* 背景、装飾関係 */
+  background-color: rgba(240, 242, 245, 0.8);
+  
+  /* アニメーション、その他 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover, .post-list-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: rgba(228, 230, 235, 0.9);
+}
+
+/* メインコンテンツエリア - ログイン画面のレイアウトに合わせる */
+.post-container {
+  /* レイアウト関係 */
+  display: flex;
+  justify-content: center;
+  
+  /* ボックスモデル関係 */
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 投稿フォームのスタイル - ログインフォームの雰囲気に合わせる */
+.post-form {
+  /* ボックスモデル関係 */
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 700px;
+  
+  /* 背景、装飾関係 */
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  /* レイアウト関係 */
+  text-align: center;
+  
+  /* ボックスモデル関係 */
+  margin-bottom: 30px;
+  
+  /* フォント関係 */
+  font-size: 24px;
+  font-weight: bold;
+  color: #0e76a8;
+}
+
+.post-form .form-group {
+  /* ボックスモデル関係 */
+  margin-bottom: 20px;
+}
+
+.post-form label {
+  /* レイアウト関係 */
+  display: block;
+  
+  /* ボックスモデル関係 */
+  margin-bottom: 8px;
+  
+  /* フォント関係 */
+  font-weight: 500;
+  color: #333;
+}
+
+.title-input, .content-input {
+  /* レイアウト関係 */
+  display: block;
+  
+  /* ボックスモデル関係 */
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  
+  /* フォント関係 */
+  font-size: 15px;
+  
+  /* 背景、装飾関係 */
+  background-color: rgba(248, 249, 250, 0.8);
+  
+  /* アニメーション、その他 */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.title-input:focus, .content-input:focus {
+  /* ボックスモデル関係 */
+  border-color: #0e76a8;
+  outline: none;
+  
+  /* 背景、装飾関係 */
+  box-shadow: 0 0 0 2px rgba(14, 118, 168, 0.2);
+}
+
+.content-input {
+  /* ボックスモデル関係 */
+  min-height: 150px;
+  
+  /* アニメーション、その他 */
+  resize: vertical;
+}
+
+/* 画像プレビューエリア */
+.image-preview-container {
+  /* レイアウト関係 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  
+  /* ボックスモデル関係 */
+  margin-bottom: 20px;
+}
+
+.image-preview, .empty-image-preview {
+  /* レイアウト関係 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+  /* ボックスモデル関係 */
+  width: 120px;
+  height: 120px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  /* 背景、装飾関係 */
+  background-color: rgba(248, 249, 250, 0.5);
+}
+
+.image-preview img {
+  /* ボックスモデル関係 */
+  width: 100%;
+  height: 100%;
+  
+  /* 背景、装飾関係 */
+  object-fit: cover;
+}
+
+.empty-image-preview span {
+  /* フォント関係 */
+  font-size: 14px;
+  color: #999;
+}
+
+.remove-image-btn {
+  /* レイアウト関係 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  
+  /* ボックスモデル関係 */
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  
+  /* フォント関係 */
+  font-size: 16px;
+  color: white;
+  
+  /* 背景、装飾関係 */
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  /* アニメーション、その他 */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.remove-image-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* アクションボタン - ログイン画面のボタンスタイルに合わせる */
+.form-actions {
+  /* レイアウト関係 */
+  display: flex;
+  justify-content: space-between;
+  
+  /* ボックスモデル関係 */
+  margin-top: 30px;
+}
+
+.image-upload-btn {
+  /* ボックスモデル関係 */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  
+  /* フォント関係 */
+  font-size: 14px;
+  color: #0e76a8;
+  
+  /* 背景、装飾関係 */
+  background-color: rgba(14, 118, 168, 0.1);
+  
+  /* アニメーション、その他 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn {
+  /* ボックスモデル関係 */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  
+  /* フォント関係 */
+  font-size: 14px;
+  color: #666;
+  
+  /* 背景、装飾関係 */
+  background-color: rgba(240, 242, 245, 0.8);
+  
+  /* アニメーション、その他 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn {
+  /* ボックスモデル関係 */
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  
+  /* フォント関係 */
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  
+  /* 背景、装飾関係 */
+  background-color: #0e76a8;
+  
+  /* アニメーション、その他 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.image-upload-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: rgba(14, 118, 168, 0.2);
+}
+
+.cancel-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: rgba(228, 230, 235, 0.9);
+}
+
+.submit-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: #0a5d87;
+}
+
+/* 表示モードのスタイル - ログイン画面の雰囲気に合わせる */
+.post-details {
+  /* ボックスモデル関係 */
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 700px;
+  
+  /* 背景、装飾関係 */
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+  /* ボックスモデル関係 */
+  margin-bottom: 15px;
+  
+  /* フォント関係 */
+  font-size: 24px;
+  font-weight: bold;
+  color: #0e76a8;
+}
+
+.post-meta {
+  /* ボックスモデル関係 */
+  margin-bottom: 20px;
+  
+  /* フォント関係 */
+  font-size: 14px;
+  color: #666;
+}
+
+.post-content {
+  /* ボックスモデル関係 */
+  margin-bottom: 30px;
+  
+  /* フォント関係 */
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.post-images {
+  /* レイアウト関係 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  
+  /* ボックスモデル関係 */
+  margin-bottom: 30px;
+}
+
+.post-image-container {
+  /* ボックスモデル関係 */
+  width: calc(50% - 8px);
+  max-width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  /* 背景、装飾関係 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-image {
+  /* レイアウト関係 */
+  display: block;
+  
+  /* ボックスモデル関係 */
+  width: 100%;
+  height: auto;
+  
+  /* 背景、装飾関係 */
+  object-fit: cover;
+}
+
+.post-actions {
+  /* レイアウト関係 */
+  display: flex;
+  gap: 15px;
+  
+  /* ボックスモデル関係 */
+  margin-top: 20px;
+}
+
+.edit-btn, .delete-btn {
+  /* ボックスモデル関係 */
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  
+  /* フォント関係 */
+  font-size: 14px;
+  
+  /* アニメーション、その他 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+  /* フォント関係 */
+  color: white;
+  
+  /* 背景、装飾関係 */
+  background-color: #0e76a8;
+}
+
+.delete-btn {
+  /* フォント関係 */
+  color: white;
+  
+  /* 背景、装飾関係 */
+  background-color: #dc3545;
+}
+
+.edit-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: #0a5d87;
+}
+
+.delete-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: #c82333;
+}
+
+/* ローディング・エラーメッセージ */
+.loading-message, .error-message {
+  /* レイアウト関係 */
+  text-align: center;
+  
+  /* ボックスモデル関係 */
+  padding: 30px;
+  
+  /* フォント関係 */
+  font-size: 18px;
+  color: #666;
+}
+
+.back-btn {
+  /* レイアウト関係 */
+  display: block;
+  
+  /* ボックスモデル関係 */
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  
+  /* フォント関係 */
+  font-size: 15px;
+  color: white;
+  
+  /* 背景、装飾関係 */
+  background-color: #0e76a8;
+  
+  /* アニメーション、その他 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+  /* 背景、装飾関係 */
+  background-color: #0a5d87;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .header {
+    /* レイアウト関係 */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .user-section {
+    /* レイアウト関係 */
+    align-items: flex-start;
+    
+    /* ボックスモデル関係 */
+    width: 100%;
+  }
+  
+  .actions {
+    /* ボックスモデル関係 */
+    width: 100%;
+  }
+  
+  .form-actions {
+    /* レイアウト関係 */
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .post-image-container {
+    /* ボックスモデル関係 */
+    width: 100%;
+    max-width: none;
+  }
+}

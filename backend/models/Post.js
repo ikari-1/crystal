@@ -15,8 +15,10 @@ const PostSchema = new mongoose.Schema(
       type: String,
       max: 5000,
     },
-    img: {
-      type: String,
+    //複数の画像を保存するために配列型に変更
+    images: {
+      type: Array,
+      default: [],
     },
     likes: {
       type: Array,
