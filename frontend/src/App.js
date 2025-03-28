@@ -1,6 +1,6 @@
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import Post_details from "./pages/post_details/Post_details";
+import Post_details from "./pages/postDetails/PostDetails";
 import PostList from "./pages/postList/PostList";
 import CreatePost from "./pages/createPost/CreatePost";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
