@@ -1,8 +1,18 @@
 const multer = require("multer");
 const path = require("path");
 
-//画像の保存先を指定
-const storage = multer.diskStorage({
+// プロフィール画像用のストレージ設定
+const profileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images/profiles");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+
+// 投稿画像用のストレージ設定
+const postStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/images/posts");
   },
@@ -29,9 +39,18 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-//multerの設定
-const upload = multer({
-  storage: storage,
+// プロフィール画像用のアップロードミドルウェア
+const uploadProfile = multer({
+  storage: profileStorage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024, //5MBまで
+  }
+});
+
+// 画像投稿用のアップロードミドルウェア
+const uploadPost = multer({
+  storage: postStorage,
   fileFilter: fileFilter,
   limits: {
     fileSize: 5 * 1024 * 1024, //5MBまで
@@ -39,4 +58,7 @@ const upload = multer({
   }
 });
 
-module.exports = upload;
+module.exports = {
+  uploadProfile: uploadProfile.single("profileImage"),
+  uploadPost: uploadPost.array("images, 4")
+};

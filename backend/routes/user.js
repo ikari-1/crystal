@@ -74,6 +74,9 @@ router.delete("/:id", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json("ユーザーが見つかりません");
+    }
     // パスワードとその他不要な情報を除外して返す
     const { password, updatedAt, ...other } = user._doc;
     res.status(200).json(other);
@@ -93,6 +96,19 @@ router.get("/username/:username", async (req, res) => {
     // パスワードとその他不要な情報を除外して返す
     const { password, updatedAt, ...other } = user._doc;
     res.status(200).json(other);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// ユーザーの投稿一覧を取得（ユーザープロフィールから取得するのでuser.jsに記載）
+router.get("/:id/posts", async (req, res) => {
+  try {
+    const Post = require("../models/Post");
+    const posts = await Post.find({ userId: req.params.id })
+      .sort({ createdAt: -1 });
+    
+    res.status(200).json(posts);
   } catch (err) {
     res.status(500).json(err);
   }
