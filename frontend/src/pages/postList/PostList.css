@@ -2,40 +2,20 @@ body {
   background-color: #c5c5c5;
 }
 
-.postListHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #E1F5FE;
-}
-
 .postListMain {
   display: flex;
-}
-
-.postListLeft {
-  display: flex;
   justify-content: center;
-  width: 15%;
-  background-color: #c5c5c5;
-}
-
-.newPostBtn {
-  width: 100px;
-  height: 30px;
   margin-top: 30px;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  background-color: #E1F5FE;
 }
 
 .postListCenter {
   display: flex;
   flex-direction: column;
   width: 70%;
-  padding-top: 30px;
+  height: 630px;
+  margin-top: 30px;
   background-color: #c5c5c5;
+  overflow: scroll;
 }
 
 .post {
@@ -68,46 +48,4 @@ body {
 
 .postTitle {
   margin: 35px;
-}
-
-.pageCounter {
-  display: flex;
-  margin: 0 auto;
-  border-radius: 10px;
-  background-color: #FFFFFF;
-  list-style: none;
-}
-
-.pageCount {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 45px;
-  border-right: 1px solid #b0b0b0;
-  color: #0088ff;
-}
-
-.pageCount:last-child {
-  border: none;
-}
-
-.currentPage {
-  color: #FFFFFF;
-  background-color: #4a45f1;
-}
-
-.postListRight {
-  display: flex;
-  justify-content: center;
-  width: 15%;
-  background-color: #c5c5c5;;
-}
-
-.logoutBtn {
-  width: 100px;
-  height: 30px;
-  margin-top: 30px;
-  border: 1px solid #000000;
-  background-color: #FFFFFF;
 }
