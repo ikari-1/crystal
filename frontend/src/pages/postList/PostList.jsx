@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import "./PostList.css";
 import axios from "axios";
-import Header from "../../components/header/Header"
+import Header from "../../components/header/Header";
 import Leftbar from "../../components/leftbar/Leftbar"
 import Rightbar from "../../components/rightbar/Rightbar"
 
@@ -24,7 +25,11 @@ export default function PostList() {
     <>
       <Header />
       <main className="postListMain">
-        <Leftbar />
+        <Leftbar>
+          <Link to="/createPost">
+            <button className="newPostBtn">新規投稿</button>
+          </Link>
+        </Leftbar>
         <div className="postListCenter">
           <ul>
             {posts.map((post) => (

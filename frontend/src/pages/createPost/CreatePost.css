@@ -1,0 +1,63 @@
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.createPostForm {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin-top: 30px;
+}
+
+.titleInput {
+  height: 30px;
+  margin-bottom: 30px;
+  border-radius: 15px;
+}
+
+.contentInput {
+  height: 200px;
+  margin-bottom: 30px;
+  border-radius: 15px;
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 150px;
+  background-color: #fff;
+  border: 1px solid #000000;
+  border-radius: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  width: 100px;
+  height: 30px;
+  margin-top: 30px;
+  border: 1px solid #000000;
+  background-color: #E1F5FE;
+}

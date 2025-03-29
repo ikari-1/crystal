@@ -4,14 +4,18 @@ body {
 
 .postListMain {
   display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 .postListCenter {
   display: flex;
   flex-direction: column;
   width: 70%;
-  padding-top: 30px;
+  height: 630px;
+  margin-top: 30px;
   background-color: #c5c5c5;
+  overflow: scroll;
 }
 
 .post {
