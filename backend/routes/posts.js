@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
-const upload = require("../middleware/upload");
+const { uploadPost } = require("../middleware/upload");
 
 // 投稿を更新
-router.put("/:id", upload.array("images", 4), async (req, res) => {
+router.put("/:id", uploadPost, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
