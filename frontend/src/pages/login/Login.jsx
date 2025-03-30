@@ -1,13 +1,14 @@
 import React, { useContext, useRef } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { loginCall } from '../../apiCalls';
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
-  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { user, dispatch } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +18,11 @@ export default function Login() {
         password: password.current.value,
       },
       dispatch
-    );
+    ).then((response) => {
+      navigate('/postList');
+    }).catch((err) => {
+      console.error(err);
+    });
   };
 
   console.log(user);

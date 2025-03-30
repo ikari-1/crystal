@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const upload = require("../middleware/upload");
+const { uploadProfile } = require("../middleware/upload");
 
 // ユーザー情報の更新
 router.put("/:id", async (req, res) => {
@@ -32,7 +32,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // ユーザープロフィール画像のアップロード
-router.post("/:id/profileImage", upload.single("profileImage"), async (req, res) => {
+router.post("/:id/profileImage", uploadProfile, async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     try {
       // ファイルがアップロードされたか確認

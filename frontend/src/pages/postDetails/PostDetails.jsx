@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import './PostDetails.css';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 
@@ -13,7 +13,6 @@ export default function Post_details() {
   const [post, setPost] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [images, setImages] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +34,6 @@ export default function Post_details() {
           setPost(res.data);
           setTitle(res.data.title);
           setContent(res.data.content);
-          setImages(res.data.images || []);
           setKeepImages(res.data.images || []);
           
           // 既存画像のプレビューURLを設定
@@ -62,7 +60,6 @@ export default function Post_details() {
           setPost(dummyPost);
           setTitle(dummyPost.title);
           setContent(dummyPost.content);
-          setImages(dummyPost.images);
           setKeepImages(dummyPost.images);
           setPreviewUrls(dummyPost.images);
         }
