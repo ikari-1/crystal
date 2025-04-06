@@ -21,7 +21,7 @@ router.put("/:id", async (req, res) => {
       const user = await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
       }, { new: true });
-    
+
       res.status(200).json(user);
     } catch (err) {
       return res.status(500).json(err);
@@ -107,7 +107,7 @@ router.get("/:id/posts", async (req, res) => {
     const Post = require("../models/Post");
     const posts = await Post.find({ userId: req.params.id })
       .sort({ createdAt: -1 });
-    
+
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json(err);

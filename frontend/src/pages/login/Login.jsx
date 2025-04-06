@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react';
-import './Login.css';
+import styles from './Login.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { loginCall } from '../../apiCalls';
@@ -28,36 +28,36 @@ export default function Login() {
   console.log(user);
 
   return (
-    <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">Crystal</h3>
-          <span className="loginDesc">
+    <div className={styles.login}>
+      <div className={styles.loginWrapper}>
+        <div className={styles.loginLeft}>
+          <h3 className={styles.loginLogo}>Crystal</h3>
+          <span className={styles.loginDesc}>
             知の結晶が、ここに生まれる。
           </span>
         </div>
-        <div className="loginRight">
-          <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
-            <p className="loginMsg">ログインはこちら</p>
-            <input 
+        <div className={styles.loginRight}>
+          <form className={styles.loginBox} onSubmit={(e) => handleSubmit(e)}>
+            <p className={styles.loginMsg}>ログインはこちら</p>
+            <input
               type="email"
               placeholder="Eメール"
-              className="loginInput"
+              className={styles.loginInput}
               required
               ref={email}
             />
             <input
               type="password"
               placeholder="パスワード"
-              className="loginInput"
+              className={styles.loginInput}
               required
               minLength="4"
               ref={password}
             />
-            <button className="loginButton">ログイン</button>
-            <span className="loginForgot">パスワードを忘れた方へ</span>
-            <Link to="/register" className="loginRegisterLink">
-              <button className="loginRegisterButton">アカウントを作成</button>
+            <button className={styles.loginButton}>ログイン</button>
+            <span className={styles.loginForgot}>パスワードを忘れた方へ</span>
+            <Link to="/register" className={styles.loginRegisterLink}>
+              <button className={styles.loginRegisterButton}>アカウントを作成</button>
             </Link>
             {/* <button className="loginRegisterButton">アカウントを作成</button> */}
           </form>

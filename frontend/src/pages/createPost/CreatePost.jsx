@@ -2,8 +2,8 @@ import React from 'react'
 import Header from '../../components/header/Header'
 import Leftbar from '../../components/leftbar/Leftbar'
 import Rightbar from '../../components/rightbar/Rightbar'
-import { Link } from 'react-router-dom'
-import './CreatePost.css'
+import { Link, useNavigate } from 'react-router-dom'
+import styles from './CreatePost.module.css'
 import { useState } from "react"
 
 export default function CreatePost() {
@@ -48,33 +48,38 @@ export default function CreatePost() {
     }
   };
 
+  const navigate = useNavigate();
+  const handleCancel = () => {
+    navigate(-1);
+  }
+
   return (
     <>
       <Header />
       <main>
         <Leftbar />
-        <div className="center">
+        <div className={styles.center}>
           <h2>新規投稿</h2>
-          <form onSubmit={handleSubmit} className="createPostForm">
-            <p className="createPostTitle">タイトル</p>
-            <input type="text" value={title} onChange={handleTitleChange} className="titleInput" />
-            <p className="createPostContent">投稿内容</p>
-            <input type="text" value={content} onChange={handleContentChange} className="contentInput" />
-            <div className="imageWrapper">
+          <form onSubmit={handleSubmit} className={styles.createPostForm}>
+            <p className={styles.createPostTitle}>タイトル</p>
+            <input type="text" value={title} onChange={handleTitleChange} className={styles.titleInput} />
+            <p className={styles.createPostContent}>投稿内容</p>
+            <input type="text" value={content} onChange={handleContentChange} className={styles.contentInput} />
+            <div className={styles.imageWrapper}>
               {images.map((file, index) => (
-                <img key={index} src={URL.createObjectURL(file)} alt={`画像${index + 1}`} className="img" />
+                <img key={index} src={URL.createObjectURL(file)} alt={`画像${index + 1}`} className={styles.img} />
               ))}
             </div>
-            <div className="buttons">
-              <input type="file" multiple onChange={handleFileChange} className="btn" />
-              <button type='reset' className="btn">キャンセル</button>
-              <button type='submit' className="btn">投稿</button>
+            <div className={styles.buttons}>
+              <input type="file" multiple onChange={handleFileChange} className={styles.btn} />
+              <button onClick={handleCancel} className={styles.btn}>キャンセル</button>
+              <button type='submit' className={styles.btn}>投稿</button>
             </div>
           </form>
         </div>
         <Rightbar>
           <Link to="/postList">
-            <button className="rightbarBtn">投稿一覧</button>
+            <button className={styles.rightbarBtn}>投稿一覧</button>
           </Link>
         </Rightbar>
       </main>

@@ -1,10 +1,10 @@
 import React from 'react'
-import "./Leftbar.css"
+import styles from "./Leftbar.module.css"
 
 export default function Leftbar({children}) {
   return (
     <>
-      <div className="leftbar">
+      <div className={styles.leftbar}>
         {children}
       </div>
     </>
