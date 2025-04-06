@@ -1,14 +1,15 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import './PostDetails.css';
+import styles from './PostDetails.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
+import Header from '../../components/header/Header';
 
 export default function Post_details() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const { id } = useParams(); // URLからポストIDを取得
-  
+
   // 投稿の状態管理
   const [post, setPost] = useState(null);
   const [title, setTitle] = useState('');
@@ -35,14 +36,14 @@ export default function Post_details() {
           setTitle(res.data.title);
           setContent(res.data.content);
           setKeepImages(res.data.images || []);
-          
+
           // 既存画像のプレビューURLを設定
           const imageUrls = res.data.images.map(img => img.startsWith('http') ? img : `${process.env.REACT_APP_API_URL}${img}`);
           setPreviewUrls(imageUrls);
         } else {
           // 開発用：IDがない場合はダミーデータを使用
           console.log('開発モード: ダミーデータを使用します');
-          
+
           // 開発用ダミーデータ
           const dummyPost = {
             _id: 'dummy123',
@@ -56,14 +57,14 @@ export default function Post_details() {
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           };
-          
+
           setPost(dummyPost);
           setTitle(dummyPost.title);
           setContent(dummyPost.content);
           setKeepImages(dummyPost.images);
           setPreviewUrls(dummyPost.images);
         }
-        
+
         setIsLoading(false);
       } catch (err) {
         console.error("投稿取得エラー:", err);
@@ -82,16 +83,16 @@ export default function Post_details() {
       // 最大4枚までの制限（既存画像＋新規画像）
       const remainingSlots = 4 - keepImages.length;
       const selectedFiles = files.slice(0, remainingSlots);
-      
+
       if (selectedFiles.length === 0) {
         alert('最大4枚までしか画像を追加できません');
         return;
       }
-      
+
       // 画像プレビューURLの生成
       const newPreviewUrls = selectedFiles.map(file => URL.createObjectURL(file));
       const newUrls = [...previewUrls, ...newPreviewUrls];
-      
+
       setPreviewUrls(newUrls);
       setImageFiles([...imageFiles, ...selectedFiles]);
     }
@@ -101,10 +102,10 @@ export default function Post_details() {
   const handleRemoveExistingImage = (index) => {
     const updatedKeepImages = [...keepImages];
     const removedImage = updatedKeepImages.splice(index, 1)[0];
-    
+
     // プレビューURLからも削除
     const updatedPreviews = previewUrls.filter(url => !url.includes(removedImage));
-    
+
     setKeepImages(updatedKeepImages);
     setPreviewUrls(updatedPreviews);
   };
@@ -113,20 +114,20 @@ export default function Post_details() {
   const handleRemoveNewImage = (index) => {
     const existingImagesCount = keepImages.length;
     const newImageIndex = index - existingImagesCount;
-    
+
     if (newImageIndex >= 0) {
       const updatedFiles = [...imageFiles];
-      
+
       // プレビューURLのオブジェクトURLを解放
       URL.revokeObjectURL(previewUrls[index]);
-      
+
       // 該当する新規画像を削除
       updatedFiles.splice(newImageIndex, 1);
-      
+
       // プレビューURLからも削除
       const updatedPreviews = [...previewUrls];
       updatedPreviews.splice(index, 1);
-      
+
       setImageFiles(updatedFiles);
       setPreviewUrls(updatedPreviews);
     }
@@ -144,7 +145,7 @@ export default function Post_details() {
       setEditMode(false);
       setTitle(post.title);
       setContent(post.content);
-      
+
       // 画像状態をリセット
       setKeepImages(post.images || []);
       const imageUrls = post.images.map(img => img.startsWith('http') ? img : `${process.env.REACT_APP_API_URL}${img}`);
@@ -161,22 +162,22 @@ export default function Post_details() {
     if (!window.confirm('本当にこの投稿を削除しますか？')) {
       return;
     }
-    
+
     try {
       await axios.delete(`/api/posts/${id}`, {
         data: { userId: user._id }  // DELETE リクエストの場合、dataオブジェクトとして送信(axiosの仕様。これがないとデータが送信されないバグに悩む可能性が出てくる)
       });
-      
+
       alert('投稿が削除されました');
       navigate('/');
     } catch (err) {
       console.error('削除エラー:', err);
       let errorMessage = '投稿の削除に失敗しました。';
-      
+
       if (err.response && err.response.data) {
         errorMessage += ` ${err.response.data}`;
       }
-      
+
       alert(errorMessage);
     }
   };
@@ -184,7 +185,7 @@ export default function Post_details() {
   // 投稿更新ハンドラ
   const handleUpdate = async (e) => {
     e.preventDefault();
-    
+
     if (!title.trim()) {
       alert('タイトルを入力してください');
       return;
@@ -196,42 +197,42 @@ export default function Post_details() {
       formData.append('userId', user._id);
       formData.append('title', title);
       formData.append('content', content);
-      
+
       // 残す既存画像のパスを追加
       keepImages.forEach(imgPath => {
         formData.append('keepImages', imgPath);
       });
-      
+
       // 新規追加画像ファイルの追加
       imageFiles.forEach(file => {
         formData.append('images', file);
       });
-      
+
       // ローディング状態を設定
       setIsLoading(true);
-      
+
       // APIリクエスト
       const response = await axios.put(`/api/posts/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      
+
       // 成功メッセージを表示
       alert('投稿が更新されました！');
-      
+
       // 更新された投稿情報を設定
       setPost(response.data);
-      
+
       // 編集モードを終了
       setEditMode(false);
       setIsLoading(false);
     } catch (err) {
       console.error('更新エラー:', err);
       setIsLoading(false);
-      
+
       let errorMessage = '投稿の更新に失敗しました。もう一度お試しください。';
-      
+
       if (err.response) {
         if (err.response.status === 413) {
           errorMessage = 'ファイルサイズが大きすぎます。画像は1枚あたり5MB以下でお試しください。';
@@ -239,7 +240,7 @@ export default function Post_details() {
           errorMessage = `エラー: ${err.response.data}`;
         }
       }
-      
+
       alert(errorMessage);
     }
   };
@@ -252,8 +253,8 @@ export default function Post_details() {
   // ロード中の表示
   if (isLoading) {
     return (
-      <div className="post-details-container loading">
-        <div className="loading-message">ロード中...</div>
+      <div className={`${styles.postDetailsContainer} ${styles.loading}`}>
+        <div className={styles.loadingMessage}>ロード中...</div>
       </div>
     );
   }
@@ -261,9 +262,9 @@ export default function Post_details() {
   // エラー表示
   if (error) {
     return (
-      <div className="post-details-container error">
-        <div className="error-message">{error}</div>
-        <button onClick={() => navigate('/')} className="back-btn">戻る</button>
+      <div className={`${styles.postDetailsContainer} ${styles.error}`}>
+        <div className={styles.errorMessage}>{error}</div>
+        <button onClick={() => navigate('/')} className={styles.backBtn}>戻る</button>
       </div>
     );
   }
@@ -271,40 +272,29 @@ export default function Post_details() {
   // 投稿が見つからない場合
   if (!post) {
     return (
-      <div className="post-details-container error">
-        <div className="error-message">投稿が見つかりません</div>
-        <button onClick={() => navigate('/')} className="back-btn">戻る</button>
+      <div className={`${styles.postDetailsContainer} ${styles.error}`}>
+        <div className={styles.errorMessage}>投稿が見つかりません</div>
+        <button onClick={() => navigate('/')} className={styles.backBtn}>戻る</button>
       </div>
     );
   }
 
   return (
-    <div className="post-details-container">
-      <div className="header">
-        <div className="logo-section">
-          <h3 className="logo">Crystal</h3>
-          <span className="tagline">知の結晶が、ここに生まれる。</span>
-        </div>
-        <div className="user-section">
-          <span className="username">{user?.username || 'ユーザー名'}</span>
-          <div className="actions">
-            <button className="logout-btn">ログアウト</button>
-          </div>
-        </div>
-      </div>
+    <div className={styles.postDetailsContainer}>
+      <Header />
 
-      <div className="post-container">
+      <div className={styles.postContainer}>
         {editMode ? (
           // 編集モード
-          <form className="post-form" onSubmit={handleUpdate}>
-            <h2 className="form-title">投稿の編集</h2>
-            
-            <div className="form-group">
+          <form className={styles.postForm} onSubmit={handleUpdate}>
+            <h2 className={styles.formTitle}>投稿の編集</h2>
+
+            <div className={styles.formGroup}>
               <label htmlFor="post-title">タイトル</label>
               <input
                 type="text"
                 id="post-title"
-                className="title-input"
+                className={styles.titleInput}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="タイトルを入力してください"
@@ -312,12 +302,12 @@ export default function Post_details() {
                 required
               />
             </div>
-            
-            <div className="form-group">
+
+            <div className={styles.formGroup}>
               <label htmlFor="post-content">投稿内容</label>
               <textarea
                 id="post-content"
-                className="content-input"
+                className={styles.contentInput}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="投稿内容を入力してください"
@@ -325,17 +315,17 @@ export default function Post_details() {
                 rows={10}
               />
             </div>
-            
-            <div className="form-group">
+
+            <div className={styles.formGroup}>
               <label>画像（最大4枚）</label>
-              <div className="image-preview-container">
+              <div className={styles.imagePreviewContainer}>
                 {/* 既存画像とプレビュー表示 */}
                 {previewUrls.map((url, index) => (
-                  <div key={index} className="image-preview">
+                  <div key={index} className={styles.imagePreview}>
                     <img src={url} alt={`プレビュー ${index + 1}`} />
-                    <button 
-                      type="button" 
-                      className="remove-image-btn"
+                    <button
+                      type="button"
+                      className={styles.removeImageBtn}
                       onClick={() => {
                         if (index < keepImages.length) {
                           handleRemoveExistingImage(index);
@@ -348,16 +338,16 @@ export default function Post_details() {
                     </button>
                   </div>
                 ))}
-                
+
                 {/* 空のプレビューボックスを表示（最大4枚まで） */}
                 {Array(Math.max(0, 4 - previewUrls.length)).fill().map((_, index) => (
-                  <div key={`empty-${index}`} className="empty-image-preview">
+                  <div key={`empty-${index}`} className={styles.emptyImagePreview}>
                     <span>画像</span>
                   </div>
                 ))}
               </div>
             </div>
-            
+
             <input
               type="file"
               multiple
@@ -366,26 +356,26 @@ export default function Post_details() {
               ref={fileInputRef}
               onChange={handleImageSelect}
             />
-            
-            <div className="form-actions">
-              <button 
-                type="button" 
-                className="image-upload-btn"
+
+            <div className={styles.formActions}>
+              <button
+                type="button"
+                className={styles.imageUploadBtn}
                 onClick={handleImageUploadClick}
                 disabled={previewUrls.length >= 4}
               >
                 画像追加
               </button>
-              <button 
-                type="button" 
-                className="cancel-btn"
+              <button
+                type="button"
+                className={styles.cancelBtn}
                 onClick={handleCancel}
               >
                 キャンセル
               </button>
-              <button 
-                type="submit" 
-                className="submit-btn"
+              <button
+                type="submit"
+                className={styles.submitBtn}
               >
                 更新
               </button>
@@ -393,38 +383,38 @@ export default function Post_details() {
           </form>
         ) : (
           // 表示モード
-          <div className="post-details">
-            <h2 className="post-title">{post.title}</h2>
-            
-            <div className="post-meta">
-              <span className="post-date">
+          <div className={styles.postDetails}>
+            <h2 className={styles.post-title}>{post.title}</h2>
+
+            <div className={styles.postMeta}>
+              <span className={styles.postDate}>
                 {new Date(post.createdAt).toLocaleDateString('ja-JP')}
               </span>
             </div>
-            
-            <div className="post-content">
+
+            <div className={styles.postContent}>
               {post.content}
             </div>
-            
+
             {post.images && post.images.length > 0 && (
-              <div className="post-images">
+              <div className={styles.postImages}>
                 {post.images.map((img, index) => (
-                  <div key={index} className="post-image-container">
-                    <img 
+                  <div key={index} className={styles.postImageContainer}>
+                    <img
                       src={img.startsWith('http') ? img : `${process.env.REACT_APP_API_URL}${img}`} 
-                      alt={`投稿画像 ${index + 1}`} 
-                      className="post-image"
+                      alt={`投稿画像 ${index + 1}`}
+                      className={styles.postImage}
                     />
                   </div>
                 ))}
               </div>
             )}
-            
+
             {/* 投稿者本人の場合のみ編集・削除ボタンを表示 */}
             {user && post.userId === user._id && (
-              <div className="post-actions">
-                <button onClick={toggleEditMode} className="edit-btn">編集</button>
-                <button onClick={handleDelete} className="delete-btn">削除</button>
+              <div className={styles.postActions}>
+                <button onClick={toggleEditMode} className={styles.editBtn}>編集</button>
+                <button onClick={handleDelete} className={styles.deleteBtn}>削除</button>
               </div>
             )}
           </div>

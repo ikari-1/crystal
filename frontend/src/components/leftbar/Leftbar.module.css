@@ -1,0 +1,8 @@
+.leftbar {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 20%;
+}

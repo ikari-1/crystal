@@ -1,11 +1,10 @@
 import React from 'react'
-import "./Rightbar.css"
+import styles from "./Rightbar.module.css"
 
 export default function Rightbar({children}) {
   return (
     <>
-      <div className="rightbar">
-        <button className="rightbarBtn">ログアウト</button>
+      <div className={styles.rightbar}>
         {children}
       </div>
     </>

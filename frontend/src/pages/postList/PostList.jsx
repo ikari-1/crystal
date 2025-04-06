@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import "./PostList.css";
+import styles from "./PostList.module.css";
 import axios from "axios";
 import Header from "../../components/header/Header";
 import Leftbar from "../../components/leftbar/Leftbar"
@@ -24,21 +23,21 @@ export default function PostList() {
   return (
     <>
       <Header />
-      <main className="postListMain">
+      <main className={styles.postListMain}>
         <Leftbar>
-          <Link to="/createPost">
-            <button className="newPostBtn">新規投稿</button>
-          </Link>
+          <a href='/createPost'>
+            <button className={styles.newPostBtn}>新規投稿</button>
+          </a>
         </Leftbar>
         <div className="postListCenter">
           <ul>
             {posts.map((post) => (
-              <li className="post" key={post._id}>
-                <div className="postData">
-                  <span className="createdUserName">投稿者のユーザーネーム</span>
-                  <span className="updatedAt">{post.updatedAt}</span>
+              <li className={styles.post} key={post._id}>
+                <div className={styles.postData}>
+                  <span className={styles.createdUserName}>投稿者のユーザーネーム</span>
+                  <span className={styles.updatedAt}>{post.updatedAt}</span>
                 </div>
-                <h3 className="postTitle">{post.title}</h3>
+                <h3 className={styles.postTitle}>{post.title}</h3>
               </li>
             ))}
           </ul>

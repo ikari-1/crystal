@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import './Register.css';
+import styles from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -31,36 +31,36 @@ export default function Register() {
   };
 
   return (
-    <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">Crystal</h3>
-          <span className="loginDesc">
+    <div className={styles.login}>
+      <div className={styles.loginWrapper}>
+        <div className={styles.loginLeft}>
+          <h3 className={styles.loginLogo}>Crystal</h3>
+          <span className={styles.loginDesc}>
             知の結晶が、ここに生まれる。
           </span>
         </div>
-        <div className="loginRight">
-          <form className="loginBox" onSubmit={(e) => handleClick(e)}>
-            <p className="loginMsg">新規登録はこちら</p>
-            <input 
+        <div className={styles.loginRight}>
+          <form className={styles.loginBox} onSubmit={(e) => handleClick(e)}>
+            <p className={styles.loginMsg}>新規登録はこちら</p>
+            <input
               type="text"
               placeholder="ユーザー名"
-              className="registerInput"
+              className={styles.registerInput}
               minLength="2"
               required
               ref={username}
             />
-            <input 
+            <input
               type="email"
               placeholder="Eメール"
-              className="registerInput"
+              className={styles.registerInput}
               required
               ref={email}
             />
             <input
               type="password"
               placeholder="パスワード"
-              className="registerInput"
+              className={styles.registerInput}
               required
               minLength="4"
               ref={password}
@@ -68,12 +68,12 @@ export default function Register() {
             <input
               type="password"
               placeholder="パスワード再入力"
-              className="registerInput"
+              className={styles.registerInput}
               required
               minLength="4"
               ref={passwordConfirmation}
             />
-            <button className="registerButton">サインアップ</button>
+            <button className={styles.registerButton}>サインアップ</button>
           </form>
         </div>
       </div>

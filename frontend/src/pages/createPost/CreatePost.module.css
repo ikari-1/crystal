@@ -10,13 +10,13 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 100px;
 }
 
 .createPostForm {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
   margin-top: 30px;
 }
 
@@ -60,4 +60,12 @@ main {
   margin-top: 30px;
   border: 1px solid #000000;
   background-color: #E1F5FE;
+}
+
+.rightbarBtn {
+  width: 100px;
+  height: 30px;
+  margin-top: 30px;
+  border: 1px solid #000000;
+  background-color: #FFFFFF;
 }
