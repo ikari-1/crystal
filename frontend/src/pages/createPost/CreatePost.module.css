@@ -23,49 +23,67 @@ main {
 .titleInput {
   height: 30px;
   margin-bottom: 30px;
+  padding-inline: 10px;
   border-radius: 15px;
 }
 
 .contentInput {
   height: 200px;
   margin-bottom: 30px;
+  padding-inline: 10px;
   border-radius: 15px;
 }
 
 .imageWrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+  gap: 30px;
+  margin-inline: auto;
   margin-bottom: 30px;
 }
 
 .img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
+  width: 125px;
   height: 150px;
   background-color: #fff;
   border: 1px solid #000000;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .buttons {
   display: flex;
   justify-content: space-around;
+  width: 90%;
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
   height: 30px;
   margin-top: 30px;
-  border: 1px solid #000000;
-  background-color: #E1F5FE;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #1289ff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-.rightbarBtn {
-  width: 100px;
-  height: 30px;
-  margin-top: 30px;
-  border: 1px solid #000000;
-  background-color: #FFFFFF;
+.btn:hover {
+  opacity: 0.7;
+}
+
+.postBtns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.cancel {
+  background-color: rgb(255, 102, 128);
 }

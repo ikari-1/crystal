@@ -384,7 +384,7 @@ export default function Post_details() {
         ) : (
           // 表示モード
           <div className={styles.postDetails}>
-            <h2 className={styles.post-title}>{post.title}</h2>
+            <h2 className={styles.postTitle}>{post.title}</h2>
 
             <div className={styles.postMeta}>
               <span className={styles.postDate}>
