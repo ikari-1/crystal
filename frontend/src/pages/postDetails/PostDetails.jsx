@@ -153,7 +153,7 @@ export default function Post_details() {
       setImageFiles([]);
     } else {
       // ホームページまたはメインページに戻る
-      navigate('/');
+      navigate(-1);
     }
   };
 

@@ -6,9 +6,7 @@ const profileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/images/profiles");
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
 });
 
 // 投稿画像用のストレージ設定

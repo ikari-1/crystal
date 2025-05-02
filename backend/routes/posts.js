@@ -107,4 +107,20 @@ router.get("/all", async (req, res) => {
   }
 });
 
+//いいねの状態を切り替える
+router.put("/:id/like", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post.likes.includes(req.body.userId)) {
+      post.likes.push(req.body.userId);
+    } else {
+      post.likes = post.likes.filter((id) => id !== req.body.userId);
+    }
+    await post.save();
+    res.status(200).json({ likes: post.likes });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

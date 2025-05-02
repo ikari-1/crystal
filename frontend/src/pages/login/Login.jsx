@@ -18,7 +18,7 @@ export default function Login() {
         password: password.current.value,
       },
       dispatch
-    ).then((response) => {
+    ).then(() => {
       navigate('/postList');
     }).catch((err) => {
       console.error(err);
@@ -59,7 +59,6 @@ export default function Login() {
             <Link to="/register" className={styles.loginRegisterLink}>
               <button className={styles.loginRegisterButton}>アカウントを作成</button>
             </Link>
-            {/* <button className="loginRegisterButton">アカウントを作成</button> */}
           </form>
         </div>
       </div>
