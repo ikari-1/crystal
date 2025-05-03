@@ -78,12 +78,21 @@ router.delete("/:id", async (req, res) => {
 });
 
 //新規投稿
-router.post("/", async (req, res) => {
-  const newPost = new Post(req.body);
+router.post("/", uploadPost, async (req, res) => {
   try {
+    const imagePath = req.files.map((file) => `/images/posts/${file.filename}`);
+
+    const newPost = new Post({
+      userId: req.body.userId,
+      title: req.body.title,
+      content: req.body.content,
+      images: imagePath,
+    });
+
     const savedPost = await newPost.save();
     return res.status(200).json(savedPost);
   } catch (err) {
+    console.log("エラー：", err)
     return res.status(500).json(err);
   }
 });

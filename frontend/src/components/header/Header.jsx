@@ -1,15 +1,16 @@
-import React from 'react'
-import styles from "./Header.module.css"
+import React from 'react';
+import styles from "./Header.module.css";
 import { useContext } from "react";
-import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { Logout } from '../../context/AuthActions';
 
 export default function Header() {
   const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch({ type:"LOGOUT" });
+    dispatch(Logout());
     localStorage.removeItem("user");
     navigate("/login");
   }

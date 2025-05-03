@@ -4,13 +4,16 @@ import Leftbar from '../../components/leftbar/Leftbar'
 import Rightbar from '../../components/rightbar/Rightbar'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './CreatePost.module.css'
-import { useState, useRef } from "react"
+import { useState, useRef, useContext } from "react"
+import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios'
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const inputRef = useRef(null);
 
@@ -37,21 +40,25 @@ export default function CreatePost() {
     }
 
     const formData = new FormData();
+    formData.append("userId", user._id);
     formData.append("title", title);
     formData.append("content", content);
     images.forEach((file) => formData.append("images", file));
 
     try {
-      const res = await axios.post("http://localhost:3001/api/posts", formData,);
-
-      alert(res.data.message);
+      const res = await axios.post("http://localhost:3001/api/posts", formData, {
+        hesders: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      navigate("/postList");
+      alert(res.data.message || "投稿しました");
     } catch (error) {
       console.error("エラー：", error);
       alert("投稿できませんでした");
     }
   };
 
-  const navigate = useNavigate();
   const handleCancel = () => {
     navigate(-1);
   }
