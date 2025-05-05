@@ -1,5 +1,5 @@
 //ユーザー入力に応じたアクションの設定
-export const LoginStart = (user) => ({
+export const LoginStart = () => ({
   type: "LOGIN_START",
 });
 export const LoginSuccess = (user) => ({
@@ -19,4 +19,8 @@ export const Follow = (userId) => ({
 export const UnFollow = (userId) => ({
   type: "UNFOLLOW",
   payload: userId,
+});
+
+export const Logout = () => ({
+  type: "LOGOUT",
 });

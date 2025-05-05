@@ -1,10 +1,20 @@
-import React from 'react'
-import styles from "./Header.module.css"
+import React from 'react';
+import styles from "./Header.module.css";
 import { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { Logout } from '../../context/AuthActions';
 
 export default function Header() {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(Logout());
+    localStorage.removeItem("user");
+    navigate("/login");
+  }
+
   return (
     <>
       <div className={styles.header}>
@@ -15,7 +25,11 @@ export default function Header() {
         <div className={styles.userSection}>
           <span className={styles.username}>{user?.username || 'ユーザー名'}</span>
           <div className={styles.actions}>
-            <button className={styles.logoutBtn}>ログアウト</button>
+            { user ? (
+              <button className={styles.btn}  onClick={handleLogout}>ログアウト</button>
+            ) : (
+              <button className={styles.btn} onClick={() => navigate("/login")}>ログイン</button>
+            )}
           </div>
         </div>
       </div>

@@ -1,14 +1,13 @@
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
 // プロフィール画像用のストレージ設定
 const profileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/images/profiles");
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
 });
 
 // 投稿画像用のストレージ設定
@@ -17,8 +16,8 @@ const postStorage = multer.diskStorage({
     cb(null, "public/images/posts");
   },
   filename: (req, file, cb) => {
-    //ファイル名を一意にするために日付と元のファイル名を組み合わせる
-    cb(null, Date.now() + "-" + file.originalname);
+    const uniqueName = Date.now() + "_" + Buffer.from(file.originalname, "latin1").toString("utf8");
+    cb(null, uniqueName);
   }
 });
 
@@ -48,6 +47,12 @@ const uploadProfile = multer({
   }
 });
 
+// 投稿画像用ディレクトリの自動生成
+const postImagesDir = path.join(__dirname, "../public/images/posts");
+if (!fs.existsSync(postImagesDir)) {
+  fs.mkdirSync(postImagesDir, { recursive: true });
+}
+
 // 画像投稿用のアップロードミドルウェア
 const uploadPost = multer({
   storage: postStorage,
@@ -60,5 +65,5 @@ const uploadPost = multer({
 
 module.exports = {
   uploadProfile: uploadProfile.single("profileImage"),
-  uploadPost: uploadPost.array("images, 4")
+  uploadPost: uploadPost.array("images", 4)
 };
