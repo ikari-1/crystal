@@ -46,7 +46,7 @@ export default function CreatePost() {
     images.forEach((file) => formData.append("images", file));
 
     try {
-      const res = await axios.post("http://localhost:3001/api/posts", formData, {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/posts`, formData, {
         hesders: {
           "Content-Type": "multipart/form-data",
         },

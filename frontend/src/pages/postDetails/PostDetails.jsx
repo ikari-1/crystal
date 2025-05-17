@@ -401,10 +401,11 @@ export default function Post_details() {
                 {post.images.map((img, index) => (
                   <div key={index} className={styles.postImageContainer}>
                     <img
-                      src={img.startsWith('http') ? img : `${process.env.REACT_APP_API_URL}${img}`} 
+                      src={img.startsWith('http') ? img : `${process.env.REACT_APP_API_URL}${img}`}
                       alt={`投稿画像 ${index + 1}`}
                       className={styles.postImage}
                     />
+                    {console.log("img=", img)}
                   </div>
                 ))}
               </div>

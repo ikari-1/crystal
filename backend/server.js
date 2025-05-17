@@ -53,6 +53,8 @@ app.use("/api/posts", postRoute);
 
 //キャッシュを使って画像を表示させない設定 ＆ 画像ファイルを見せるための設定
 // （backendフォルダで画像ファイル削除した際、キャッシュから古い画像が返されて、その実際のファイルをサーバーに確認するときにファイルなしエラーが出てしまったので）
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/images', (req, res, next) => {
   const filePath = path.join(__dirname, 'public/images', req.url);
   console.log('Requested URL:', req.url); // debug
