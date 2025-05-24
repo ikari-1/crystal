@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { Logout } from '../../context/AuthActions';
+import Searchbar from '../searchbar/Searchbar';
 
 export default function Header() {
   const { user, dispatch } = useContext(AuthContext);
@@ -22,6 +23,7 @@ export default function Header() {
           <h3 className={styles.logo}>Crystal</h3>
           <span className={styles.tagline}>知の結晶が、ここに生まれる。</span>
         </div>
+        <Searchbar />
         <div className={styles.userSection}>
           <span className={styles.username}>{user?.username || 'ユーザー名'}</span>
           <div className={styles.actions}>

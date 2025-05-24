@@ -132,4 +132,35 @@ router.put("/:id/like", async (req, res) => {
   }
 });
 
+// タイトル検索
+router.get(`/search`, async (req, res) => {
+  try {
+    const title = req.query.title;
+    const posts = await Post.find({
+      title: { $regex: title, $options: "i" }
+    });
+    res.json(posts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: '検索に失敗しました' });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log("ID:", id);
+  try {
+    const post = await Post.findById(req.params.id).lean();
+    if (!post) {
+      return res.status(404).json("投稿が見つかりません");
+    }
+    const user = await User.findById(post.userId).select("username");
+    const postWithUser = { ...post, username: user ? user.username : "不明なユーザー"};
+    res.status(200).json(postWithUser);
+  } catch (err) {
+    console.error("エラー：", err);
+    res.status(500).json(err);
+  }
+})
+
 module.exports = router;

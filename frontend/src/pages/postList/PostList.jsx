@@ -8,11 +8,13 @@ import { Link, useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { AuthContext } from "../../context/AuthContext";
+import { SearchContext } from "../../context/SearchContext";
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { result, query } = useContext(SearchContext);
 
   const handleLike = async (postId) => {
     try {
@@ -27,8 +29,6 @@ export default function PostList() {
     }
   };
 
-  console.log(user);
-  console.log(posts);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -42,7 +42,12 @@ export default function PostList() {
     fetchPosts();
   }, []);
 
+  const displayPosts = query ? result : posts;
 
+
+  console.log("query:", query);
+  console.log("result:", result);
+  console.log("displayPosts:", displayPosts);
   return (
     <>
       <Header />
@@ -50,8 +55,8 @@ export default function PostList() {
         <Leftbar />
         <div className={styles.postListCenter}>
           <ul>
-            {posts.map((post) => (
-              <li className={styles.post} key={post._id} onClick={() => navigate(`/post/${post._id}`)}>
+            {Array.isArray(posts) && displayPosts.map((post) => (
+              <li className={styles.post} key={post._id} onClick={() => navigate(`/posts/${post._id}`)}>
                 <div className={styles.postData}>
                   <span className={styles.createdUserName}>
                     {post.username}
