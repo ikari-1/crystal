@@ -1,14 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-color: #E1F5FE;
-}
-
 .login {
-  background-color: #E1F5FE;
+  background-color: var(--primary-container);
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -20,7 +11,6 @@ body {
 .loginWrapper {
   width: 70%;
   height: 70%;
-  /* background-color: #78909C; */
   display: flex;
 }
 
@@ -33,24 +23,26 @@ body {
 
 .loginLogo {
   font-size: 50px;
-  /* font-weight: 800; */
-  color: #0288D1;
+  color: var(--on-primary-container);
   margin-left: -5px;
 }
 
 .loginDesc {
   font-size: 24px;
+  color: var(--secondary);
 }
 
 .loginBox {
   padding: 30px;
-  background-color: white;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
-  /* gap: 15px; */
-  box-shadow: 8px 9px 0px -5px #777777;
-  border-radius: 10px;
+  gap: 20px;
+  box-shadow:
+  0px 2px 4px rgba(0, 0, 0, 0.2),
+  0px 3px 3px rgba(0, 0, 0, 0.14),
+  0px 1px 5px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
 }
 
 .loginMsg {
@@ -59,31 +51,14 @@ body {
 }
 
 .loginInput {
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid #B0BEC5;
-  padding-left: 10px;
-  margin-top: 20px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--outline);
+  padding-left: 16px;
 }
 
 .loginInput:focus {
   outline: none;
-}
-
-.loginButton {
-  height: 30px;
-  margin-top: 30px;
-  border-radius: 10px;
-  border: none;
-  background-color: #eaf2fd;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.loginButton:hover {
-  background-color: #cfe2f3;
 }
 
 .loginForgot {
@@ -94,30 +69,8 @@ body {
   margin-top: 10px;
 }
 
-.loginRegisterLink {
-  width: 60%;
-  align-self: center;
-}
-
 .loginForgot:hover {
   text-decoration: underline;
-}
-
-.loginRegisterButton {
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #eaf2fdc0;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.loginRegisterButton:hover {
-  background-color: #cfe2f3c0;
 }
 
 @media (max-width: 1000px) {

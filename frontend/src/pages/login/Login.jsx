@@ -1,8 +1,10 @@
 import React, { useContext, useRef } from 'react';
 import styles from './Login.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { loginCall } from '../../apiCalls';
+import FilledButton from '../../components/buttons/filledButton/FilledButton';
+import OutlinedButton from "../../components/buttons/outlinedButton/OutlinedButton";
 
 export default function Login() {
   const email = useRef();
@@ -54,11 +56,13 @@ export default function Login() {
               minLength="4"
               ref={password}
             />
-            <button className={styles.loginButton}>ログイン</button>
+            {/* <button className={styles.loginButton}>ログイン</button> */}
+            <FilledButton text="ログイン" />
+            <OutlinedButton text="アカウントを作成" onClick={() => navigate("/register")} />
             <span className={styles.loginForgot}>パスワードを忘れた方へ</span>
-            <Link to="/register" className={styles.loginRegisterLink}>
-              <button className={styles.loginRegisterButton}>アカウントを作成</button>
-            </Link>
+            {/* <Link to="/register" className={styles.loginRegisterLink}> */}
+              {/* <button className={styles.loginRegisterButton}>アカウントを作成</button> */}
+            {/* </Link> */}
           </form>
         </div>
       </div>
