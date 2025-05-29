@@ -6,8 +6,8 @@ export default function FAB() {
   return (
     <>
       <button className={styles.btn}>
-        <CreateIcon className={styles.icon} />
+        <CreateIcon />
       </button>
     </>
   )
-} 
+}

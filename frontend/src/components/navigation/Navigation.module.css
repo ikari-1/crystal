@@ -17,8 +17,12 @@
   list-style: none;
 }
 
+.item:not(.select):hover {
+  background-color: var(--surface-container-highest);
+}
+
 .select {
-  color: var(--on-secondary-container);
+  color: var(--on-primary-container);
   background-color: var(--secondary-container);
 }
 

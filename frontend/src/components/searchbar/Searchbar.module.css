@@ -16,6 +16,7 @@
   border-radius: 28px;
   color: var(--on-surface);
   background-color: transparent;
+  outline: none;
 }
 
 .icon {

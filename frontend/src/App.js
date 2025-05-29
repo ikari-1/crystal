@@ -10,23 +10,26 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import "./App.css";
 import "./ThemeColor.css";
+import SelectedNavProvider from "./context/SelectedNavContext";
 
 function App() {
   const { user } = useContext(AuthContext);
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={user ? <Navigate to="/postList"/> : <Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/posts/:id" element={<PostDetails />} />
-        <Route path="/createPost" element={<CreatePost />} />
-        <Route path="/postList" element={<PostList />} />
-        <Route path="/profile/" element={<Profile />} />
-        {/* <Route path="/write" element={<Write />} /> */}
-        <Route path="/setting" element={<Setting />} />
-        {/* <Route path="/post/:postId" element={<Single />} /> */}
-      </Routes>
+      <SelectedNavProvider>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={user ? <Navigate to="/postList"/> : <Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/createPost" element={<CreatePost />} />
+          <Route path="/postList" element={<PostList />} />
+          <Route path="/profile/" element={<Profile />} />
+          {/* <Route path="/write" element={<Write />} /> */}
+          <Route path="/setting" element={<Setting />} />
+          {/* <Route path="/post/:postId" element={<Single />} /> */}
+        </Routes>
+      </SelectedNavProvider>
     </Router>
   );
 }
