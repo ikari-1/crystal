@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import styles from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import FilledButton from '../../components/buttons/filledButton/FilledButton';
+import OutlinedButton from '../../components/buttons/outlinedButton/OutlinedButton';
 
 export default function Register() {
   const username = useRef();
@@ -73,7 +75,8 @@ export default function Register() {
               minLength="4"
               ref={passwordConfirmation}
             />
-            <button className={styles.registerButton}>サインアップ</button>
+            <FilledButton text="サインアップ" />
+            <OutlinedButton text="ログイン画面へ" onClick={() => navigate("/login")} />
           </form>
         </div>
       </div>
