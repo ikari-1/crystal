@@ -1,305 +1,60 @@
-.postDetailsContainer {
+.container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', sans-serif;
-}
-
-.postContainer {
-  display: flex;
-  justify-content: center;
+  align-items: center;
   width: 100%;
-  max-width: 1000px;
-  margin-top: 120px;
-  margin-inline: auto;
-  padding: 20px;
+  min-height: calc(100vh - 100px);
 }
 
-.postForm {
+.card {
   padding: 30px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 700px;
-  background-color: white;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  margin-top: 30px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow:
+  0px 1px 3px rgba(0, 0, 0, 0.2),
+  0px 1px 1px rgba(0, 0, 0, 0.14),
+  0px 2px 1px rgba(0, 0, 0, 0.12);
 }
 
-.formTitle {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #0e76a8;
-}
-
-.postForm .formGroup {
-  margin-bottom: 20px;
-}
-
-.postForm label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #333;
-}
-
-.titleInput, .contentInput {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 15px;
-  background-color: rgba(248, 249, 250, 0.8);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.titleInput:focus, .contentInput:focus {
-  border-color: #0e76a8;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(14, 118, 168, 0.2);
-}
-
-.contentInput {
-  min-height: 150px;
-  resize: vertical;
-}
-
-.imagePreviewContainer {
+.userInfo {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.imagePreview, .emptyImagePreview {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
-  width: 120px;
-  height: 120px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: rgba(248, 249, 250, 0.5);
+  gap: 20px;
+  margin-bottom: 10px;
 }
 
-.imagePreview img {
+.title {
+  border-bottom: 1px solid var(--primary);
+}
+
+.content {
+  margin-top: 30px;
+}
+
+.imgs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.empty-imagePreview span {
-  font-size: 14px;
-  color: #999;
-}
-
-.removeImageBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 24px;
-  height: 24px;
-  border: none;
-  border-radius: 50%;
-  font-size: 16px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.removeImageBtn:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.formActions {
+.btns {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
 }
 
-.imageUploadBtn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  color: #0e76a8;
-  background-color: rgba(14, 118, 168, 0.1);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.cancelBtn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  color: #666;
-  background-color: rgba(240, 242, 245, 0.8);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submitBtn {
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
-  font-size: 15px;
-  font-weight: bold;
-  color: white;
-  background-color: #0e76a8;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.image-uploadBtn:hover {
-  background-color: rgba(14, 118, 168, 0.2);
-}
-
-.cancelBtn:hover {
-  background-color: rgba(228, 230, 235, 0.9);
-}
-
-.submitBtn:hover {
-  background-color: #0a5d87;
-}
-
-.postDetails {
-  padding: 30px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 700px;
-  background-color: white;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-}
-
-.postTitle {
-  margin-bottom: 15px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #0e76a8;
-}
-
-.postMeta {
-  margin-bottom: 20px;
-  font-size: 14px;
-  color: #666;
-}
-
-.postContent {
-  margin-bottom: 30px;
-  line-height: 1.6;
-  white-space: pre-line;
-}
-
-.postImages {
+.actionBtns {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 30px;
-}
-
-.postImageContainer {
-  width: calc(50% - 8px);
-  max-width: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.postImage {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.postActions {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.editBtn, .deleteBtn {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.editBtn {
-  color: white;
-  background-color: #0e76a8;
-}
-
-.deleteBtn {
-  color: white;
-  background-color: #dc3545;
-}
-
-.editBtn:hover {
-  background-color: #0a5d87;
-}
-
-.deleteBtn:hover {
-  background-color: #c82333;
-}
-
-.loadingMessage, .errorMessage {
-  text-align: center;
-  padding: 30px;
-  font-size: 18px;
-  color: #666;
-}
-
-.backBtn {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 15px;
-  color: white;
-  background-color: #0e76a8;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.backBtn:hover {
-  background-color: #0a5d87;
-}
-
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-  
-  .userSection {
-    align-items: flex-start;
-    width: 100%;
-  }
-  
-  .actions {
-    width: 100%;
-  }
-  
-  .formActions {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .postImageContainer {
-    width: 100%;
-    max-width: none;
-  }
+  gap: 30px;
 }

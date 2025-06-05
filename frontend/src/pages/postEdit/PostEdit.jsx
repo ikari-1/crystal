@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/header/Header'
-import { useNavigate } from 'react-router-dom'
-import styles from './CreatePost.module.css'
+import { useNavigate, useParams } from 'react-router-dom'
+import styles from './PostEdit.module.css'
 import { useState, useRef, useContext } from "react"
 import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios'
@@ -12,18 +12,37 @@ import TonalButton from '../../components/buttons/tonalButton/TonalButton'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-export default function CreatePost() {
+export default function PostEdit() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await axios.get(`/api/posts/${id}`);
+        setTitle(res.data.title || "");
+        setContent(res.data.content || "");
+        setImages(Array.isArray(res.data.images) ? res.data.images : []);
+      } catch(err) {
+        console.error("なんかエラー出たわ：", err);
+      }
+    };
+    fetchPost();
+  }, [id]);
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length + images.length > 4) {
+    const existingImgs = images.filter(img => typeof img === "string");
+    const newImgs = images.filter(img => typeof img !== "string");
+
+    const totalCount = existingImgs.length + newImgs.length + selectedFiles.length;
+
+    if (totalCount  > 4) {
       alert("画像は４枚まで投稿できます");
       return;
     }
@@ -36,24 +55,31 @@ export default function CreatePost() {
       alert("タイトルは記入してください");
       return;
     }
+    const existingImgs = images.filter(img => typeof img === "string");
+    const newImgs = images.filter(img => typeof img !== "string");
 
     const formData = new FormData();
     formData.append("userId", user._id);
     formData.append("title", title);
     formData.append("content", content);
-    images.forEach((file) => formData.append("images", file));
+    existingImgs.forEach((imgPath) => {
+      formData.append("keepImages", imgPath);
+    });
+    newImgs.forEach((file) => {
+      formData.append("images", file);
+    });
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/posts`, formData, {
-        hesders: {
+      const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/posts/${id}`, formData, {
+        headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       navigate("/postList");
-      alert(res.data.message || "投稿しました");
+      alert(res.data.message || "投稿を更新しました");
     } catch (error) {
       console.error("エラー：", error);
-      alert("投稿できませんでした");
+      alert("投稿を更新できませんでした");
     }
   };
 
@@ -72,14 +98,17 @@ export default function CreatePost() {
               <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.titleInput} placeholder="タイトル" />
               <textarea type="text" value={content} onChange={(e) => setContent(e.target.value)} className={styles.contentInput} placeholder="投稿内容" />
               <div className={styles.imgs}>
-                {images.map((file, index) => (
-                  <div className={styles.imgWrap}>
-                    <img key={index} src={URL.createObjectURL(file)} alt={`画像${index + 1}`} className={styles.img} />
-                    <button type="button" onClick={() => {setImages(images.filter((_, i) => i !== index ))}} className={styles.delBtn}>
-                      <CancelIcon />
-                    </button>
-                  </div>
-                ))}
+                {Array.isArray(images) && images.map((file, index) => {
+                  const src = typeof file === "string" ? file : URL.createObjectURL(file);
+                  return (
+                    <div className={styles.imgWrap}>
+                      <img src={src} alt={`画像${index + 1}`} className={styles.img}/>
+                      <button type="button" onClick={() => {setImages(images.filter((_, i) => i !== index ))}} className={styles.delBtn}>
+                        <CancelIcon />
+                      </button>
+                    </div>
+                  )
+                })}
               </div>
             </form>
             <div className={styles.buttons}>
@@ -87,7 +116,7 @@ export default function CreatePost() {
               <div className={styles.postBtns}>
                 <TonalButton type="button" onClick={() => inputRef.current.click()} text="ファイル選択" />
                 <input type="file" multiple onChange={handleFileChange} ref={inputRef} style={{ display: 'none' }}/>
-                <FilledButton form="postForm" type="submit" text="投稿" />
+                <FilledButton form="postForm" type="submit" text="更新" />
               </div>
             </div>
           </div>

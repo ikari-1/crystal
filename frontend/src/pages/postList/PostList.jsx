@@ -45,10 +45,6 @@ export default function PostList() {
 
   const displayPosts = query ? result : posts;
 
-
-  console.log("query:", query);
-  console.log("result:", result);
-  console.log("displayPosts:", displayPosts);
   return (
     <>
       <Header />
