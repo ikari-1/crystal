@@ -20,14 +20,16 @@ export default function PostEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
   const inputRef = useRef(null);
+  const [ profilePicture, setProfilePicture ] = useState("")
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchPost = async () => {
       try {
         const res = await axios.get(`/api/posts/${id}`);
         setTitle(res.data.title || "");
         setContent(res.data.content || "");
         setImages(Array.isArray(res.data.images) ? res.data.images : []);
+        setProfilePicture(res.data.profilePicture || "")
       } catch(err) {
         console.error("なんかエラー出たわ：", err);
       }
@@ -91,7 +93,17 @@ export default function PostEdit() {
         <div className={styles.container}>
           <div className={styles.card}>
             <div className={styles.userInfo}>
-              <AccountCircleIcon/>
+              <div className={styles.userIcon}>
+                {profilePicture ? (
+                  <img
+                    src={(typeof profilePicture === 'string' ? profilePicture : URL.createObjectURL(profilePicture))}
+                    alt=""
+                    className={styles.profileImg}
+                  />
+                ) : (
+                  <AccountCircleIcon sx={{width: "100%", height: "100%"}} />
+                )}
+              </div>
               <span>{user.username}</span>
             </div>
             <form onSubmit={handleSubmit} className={styles.createPostForm} id="postForm">

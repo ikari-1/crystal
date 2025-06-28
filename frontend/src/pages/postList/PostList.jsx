@@ -30,7 +30,6 @@ export default function PostList() {
     }
   };
 
-
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -55,9 +54,19 @@ export default function PostList() {
             {Array.isArray(posts) && displayPosts.map((post) => (
               <li className={styles.post} key={post._id} onClick={() => navigate(`/posts/${post._id}`)}>
                 <div className={styles.postHeader}>
-                  <AccountCircleIcon />
+                  <div className={styles.userIcon} onClick={(e) => { e.stopPropagation(); navigate(`/profile/${post.userId}`)}}>
+                    {post?.profilePicture ? (
+                      <img
+                        src={(typeof post?.profilePicture === 'string' ? post?.profilePicture : URL.createObjectURL(user?.profilePicture))}
+                        alt=""
+                        className={styles.profileImg}
+                      />
+                    ) : (
+                      <AccountCircleIcon sx={{width: "100%", height: "100%"}} />
+                    )}
+                  </div>
                   <div className={styles.postData}>
-                    <span className={styles.createdUserName}>
+                    <span className={styles.createdUserName} onClick={(e) => { e.stopPropagation(); navigate(`/profile/${post.userId}`)}}>
                       {post.username}
                     </span>
                     <span className={styles.updatedAt}>

@@ -65,7 +65,17 @@ export default function CreatePost() {
         <div className={styles.container}>
           <div className={styles.card}>
             <div className={styles.userInfo}>
-              <AccountCircleIcon/>
+              <div className={styles.userIcon}>
+                {user?.profilePicture ? (
+                  <img
+                    src={(typeof user?.profilePicture === 'string' ? user?.profilePicture : URL.createObjectURL(user?.profilePicture))}
+                    alt=""
+                    className={styles.profileImg}
+                  />
+                ) : (
+                  <AccountCircleIcon sx={{width: "100%", height: "100%"}} />
+                )}
+              </div>
               <span>{user.username}</span>
             </div>
             <form onSubmit={handleSubmit} className={styles.createPostForm} id="postForm">

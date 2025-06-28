@@ -2,10 +2,20 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
+// 保存先ディレクトリの自動生成
+const profileImagesDir = path.join(__dirname, "../public/images/profiles");
+if (!fs.existsSync(profileImagesDir)) {
+  fs.mkdirSync(profileImagesDir, { recursive: true });
+}
+const postImagesDir = path.join(__dirname, "../public/images/posts");
+if (!fs.existsSync(postImagesDir)) {
+  fs.mkdirSync(postImagesDir, { recursive: true });
+}
+
 // プロフィール画像用のストレージ設定
 const profileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images/profiles");
+    cb(null, profileImagesDir);
   },
   filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
 });
@@ -13,7 +23,7 @@ const profileStorage = multer.diskStorage({
 // 投稿画像用のストレージ設定
 const postStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images/posts");
+    cb(null, postImagesDir);
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "_" + Buffer.from(file.originalname, "latin1").toString("utf8");
@@ -47,12 +57,6 @@ const uploadProfile = multer({
   }
 });
 
-// 投稿画像用ディレクトリの自動生成
-const postImagesDir = path.join(__dirname, "../public/images/posts");
-if (!fs.existsSync(postImagesDir)) {
-  fs.mkdirSync(postImagesDir, { recursive: true });
-}
-
 // 画像投稿用のアップロードミドルウェア
 const uploadPost = multer({
   storage: postStorage,
@@ -64,6 +68,6 @@ const uploadPost = multer({
 });
 
 module.exports = {
-  uploadProfile: uploadProfile.single("profileImage"),
+  uploadProfile: uploadProfile.single("profilePicture"),
   uploadPost: uploadPost.array("images", 4)
 };

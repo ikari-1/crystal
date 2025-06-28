@@ -61,8 +61,18 @@ export default function PostDetails() {
         <div className={styles.container}>
           <div className={styles.card}>
             <div className={styles.userInfo}>
-              <AccountCircleIcon/>
-              <span>{post?.username}</span>
+              <div className={styles.userIcon} onClick={(e) => { e.stopPropagation(); navigate(`/profile/${post.userId}`)}}>
+                {post?.profilePicture ? (
+                  <img
+                    src={(typeof post?.profilePicture === 'string' ? post?.profilePicture : URL.createObjectURL(user?.profilePicture))}
+                    alt=""
+                    className={styles.profileImg}
+                  />
+                ) : (
+                  <AccountCircleIcon sx={{width: "100%", height: "100%"}} />
+                )}
+              </div>
+              <span className={styles.username} onClick={(e) => { e.stopPropagation(); navigate(`/profile/${post.userId}`)}}>{post?.username}</span>
               <span>
                 {(() => {
                   const date = new Date(post?.updatedAt);

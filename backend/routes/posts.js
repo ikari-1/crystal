@@ -105,8 +105,12 @@ router.get("/all", async (req, res) => {
     // 投稿者の名前を取得して追加
     const postsWithUser = await Promise.all(
       posts.map(async (post) => {
-        const user = await User.findById(post.userId).select("username");
-        return { ...post, username: user ? user.username : "不明なユーザー" };
+        const user = await User.findById(post.userId).select("username profilePicture");
+        return {
+          ...post,
+          username: user ? user.username : "不明なユーザー",
+          profilePicture: user ? user.profilePicture : ""
+        };
       })
     );
 
@@ -154,8 +158,12 @@ router.get("/:id", async (req, res) => {
     if (!post) {
       return res.status(404).json("投稿が見つかりません");
     }
-    const user = await User.findById(post.userId).select("username");
-    const postWithUser = { ...post, username: user ? user.username : "不明なユーザー"};
+    const user = await User.findById(post.userId).select("username profilePicture");
+    const postWithUser = {
+      ...post,
+      username: user ? user.username : "不明なユーザー",
+      profilePicture: user ? user.profilePicture : ""
+    };
     res.status(200).json(postWithUser);
   } catch (err) {
     console.error("エラー：", err);
