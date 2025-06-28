@@ -12,6 +12,7 @@ import "./App.css";
 import "./ThemeColor.css";
 import SelectedNavProvider from "./context/SelectedNavContext";
 import PostEdit from "./pages/postEdit/PostEdit";
+import ProfileEdit from "./pages/profileEdit/ProfileEdit";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -22,11 +23,12 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={user ? <Navigate to="/postList"/> : <Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/posts/:id" element={<PostDetails />} />
-          <Route path="/createPost" element={<CreatePost />} />
           <Route path="/postList" element={<PostList />} />
-          <Route path="/profile/" element={<Profile />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/posts/:id/edit" element={<PostEdit />} />
+          <Route path="/createPost" element={<CreatePost />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="profile/:id/edit" element={<ProfileEdit />} />
           <Route path="/setting" element={<Setting />} />
           {/* <Route path="/post/:postId" element={<Single />} /> */}
         </Routes>

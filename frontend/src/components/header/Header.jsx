@@ -6,6 +6,7 @@ import { Logout } from '../../context/AuthActions';
 import Searchbar from '../searchbar/Searchbar';
 import OutlinedButton from '../buttons/outlinedButton/OutlinedButton';
 import { ThemeContext } from '../../context/ThemeContext';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Header() {
   const { user, dispatch } = useContext(AuthContext);
@@ -29,7 +30,20 @@ export default function Header() {
         </div>
         <Searchbar />
         <div className={styles.userSection}>
-          <span className={styles.username}>{user?.username || 'ユーザー名'}</span>
+          <div className={styles.userInfo} onClick={() => navigate(`/profile/${user._id}`)} >
+            <div className={styles.userIcon}>
+              {user?.profilePicture ? (
+                <img
+                  src={(typeof user?.profilePicture === 'string' ? user?.profilePicture : URL.createObjectURL(user?.profilePicture))}
+                  alt=""
+                  className={styles.profileImg}
+                />
+              ) : (
+                <AccountCircleIcon sx={{width: "100%", height: "100%"}} />
+              )}
+            </div>
+            <span className={styles.username}>{user?.username || 'ユーザー名'}</span>
+          </div>
           <div className={styles.actions}>
             { user ? (
               <OutlinedButton text="ログアウト" onClick={handleLogout} />

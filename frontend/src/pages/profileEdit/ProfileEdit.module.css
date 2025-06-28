@@ -1,0 +1,84 @@
+.main {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 100px);
+}
+
+.card {
+  padding: 30px;
+  width: 60%;
+  margin: 30px 0 30px 0;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow:
+  0px 1px 3px rgba(0, 0, 0, 0.2),
+  0px 1px 1px rgba(0, 0, 0, 0.14),
+  0px 2px 1px rgba(0, 0, 0, 0.12);
+}
+
+.editProfileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.profileImgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.profileImg {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.usernameInput, .profileTextInput {
+  height: 56px;
+  padding-inline: 16px;
+  border-radius: 4px 4px 0 0;
+  border: none;
+  border-bottom: 1px solid var(--outline);
+  background-color: var(--surface-container-low);
+  color: var(--on-surface-container-variant);
+}
+
+.profileTextInput {
+  min-height: 112px;
+  padding: 16px;
+  resize: none;
+}
+
+.usernameInput:hover, .profileTextInput:hover {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface-container-variant);
+}
+
+.usernameInput:focus, .profileTextInput:focus {
+  outline: none;
+  border-bottom: 2px solid var(--primary);
+  background-color: var(--surface-container-high);
+  color: var(--on-surface-container-variant);
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}

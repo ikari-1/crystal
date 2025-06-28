@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { uploadProfile } = require("../middleware/upload");
 
 // ユーザー情報の更新
-router.put("/:id", async (req, res) => {
+router.put("/:id", uploadProfile, async (req, res) => {
   // リクエストしたユーザーIDとパラメータのIDが一致するか確認
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     //パスワードを更新する場合は暗号化
@@ -17,6 +17,11 @@ router.put("/:id", async (req, res) => {
       }
     }
 
+    // 新しい画像ファイルがあれば、そのパスを保存
+    if (req.file) {
+      req.body.profilePicture = `/images/profiles/${req.file.filename}`;
+    }
+
     try {
       const user = await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
@@ -25,31 +30,6 @@ router.put("/:id", async (req, res) => {
       res.status(200).json(user);
     } catch (err) {
       return res.status(500).json(err);
-    }
-  } else {
-    return res.status(403).json("アカウントの更新権限がありません");
-  }
-});
-
-// ユーザープロフィール画像のアップロード
-router.post("/:id/profileImage", uploadProfile, async (req, res) => {
-  if (req.body.userId === req.params.id || req.body.isAdmin) {
-    try {
-      // ファイルがアップロードされたか確認
-      if (!req.file) {
-        return res.status(400).json("画像ファイルがありません");
-      }
-
-      // 画像パスをユーザープロフィールに設定
-      const imagePath = `/images/profiles/${req.file.filename}`;
-
-      const user = await User.findByIdAndUpdate(req.params.id, {
-        profilePicture: imagePath
-      }, { new: true });
-
-      res.status(200).json(user);
-    } catch (err) {
-      res.status(500).json(err);
     }
   } else {
     return res.status(403).json("アカウントの更新権限がありません");
@@ -104,13 +84,15 @@ router.get("/username/:username", async (req, res) => {
 // ユーザーの投稿一覧を取得（ユーザープロフィールから取得するのでuser.jsに記載）
 router.get("/:id/posts", async (req, res) => {
   try {
-    const Post = require("../models/Post");
-    const posts = await Post.find({ userId: req.params.id })
-      .sort({ createdAt: -1 });
+    const Posts = require("../models/Post")
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if(!user) return res.status(404).json({ message: "ユーザーが見つかりません"});
 
-    res.status(200).json(posts);
-  } catch (err) {
-    res.status(500).json(err);
+    const posts = await Posts.find({ userId: userId });
+    res.json({ user, posts });
+  } catch(err) {
+    res.status(500).json({ message: "サーバーエラー"});
   }
 });
 
